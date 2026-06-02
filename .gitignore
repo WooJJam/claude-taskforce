@@ -1,0 +1,47 @@
+# Docs
+docs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+logs/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+vendor/
+
+# Build
+dist/
+build/
+out/
+target/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Java
+*.class
+*.jar
+*.war
+
+# Temp
+*.tmp
+*.swp
+*.bak
