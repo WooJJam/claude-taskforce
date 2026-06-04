@@ -1,5 +1,7 @@
 # Docs
 docs/
+!docs/superpowers/
+!docs/superpowers/**
 
 # OS
 .DS_Store
