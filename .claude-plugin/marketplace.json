@@ -7,10 +7,10 @@
   },
   "plugins": [
     {
-      "name": "ai-dev-team",
+      "name": "claude-taskforce",
       "description": "요구사항 분석~QA를 역할별 AI 에이전트로 분리한 멀티 에이전트 개발 워크플로우",
       "category": "workflow",
-      "source": "./plugins/ai-dev-team"
+      "source": "./plugins/claude-taskforce"
     }
   ]
 }
