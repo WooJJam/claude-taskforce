@@ -1,0 +1,18 @@
+{
+  "name": "ai-dev-team",
+  "displayName": "역할별 AI 가상 개발팀",
+  "description": "요구사항 분석 → 설계 → TDD → 코드 리뷰 → QA를 역할별 AI 에이전트로 분리하고, Orchestrator가 단계를 자동 연결하는 멀티 에이전트 개발 워크플로우. /task 명령으로 실행.",
+  "version": "0.1.0",
+  "author": {
+    "name": "woojjam"
+  },
+  "keywords": [
+    "workflow",
+    "multi-agent",
+    "tdd",
+    "code-review",
+    "qa",
+    "orchestration"
+  ],
+  "commands": "./commands/"
+}

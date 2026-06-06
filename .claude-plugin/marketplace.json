@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "woojjam-marketplace",
+  "description": "woojjam의 Claude Code 플러그인 마켓플레이스",
+  "owner": {
+    "name": "woojjam"
+  },
+  "plugins": [
+    {
+      "name": "ai-dev-team",
+      "description": "요구사항 분석~QA를 역할별 AI 에이전트로 분리한 멀티 에이전트 개발 워크플로우",
+      "category": "workflow",
+      "source": "./plugins/ai-dev-team"
+    }
+  ]
+}
