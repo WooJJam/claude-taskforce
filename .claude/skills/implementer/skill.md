@@ -9,6 +9,20 @@
 
 ---
 
+## 스택별 참조 파일
+
+이 스킬은 특정 언어·프레임워크에 종속되지 않는다. 구현을 시작하기 전에 **현재 프로젝트의 스택을 판별**하고, 해당하는 참조 파일이 있으면 읽어 그 컨벤션을 따른다.
+
+스택 판별: 빌드/의존성 파일로 확인한다 (`build.gradle*`/`pom.xml` → JVM, `package.json` → Node, `pyproject.toml`/`requirements.txt` → Python 등).
+
+| 스택 | 참조 파일 |
+|------|----------|
+| Spring Boot (Java) | `references/spring-boot.md` |
+
+참조 파일이 없는 스택이면, 아래 일반 원칙을 그 스택의 표준 테스트 프레임워크에 맞게 적용한다.
+
+---
+
 ## TDD 사이클
 
 각 기능을 다음 순서로 반복한다. **한 사이클이 끝난 뒤 다음 케이스로 넘어간다.**
@@ -27,56 +41,27 @@
 
 ### AAA 패턴 (Arrange - Act - Assert)
 
-```java
-@Test
-void 중복_이메일로_회원가입하면_예외가_발생한다() {
-    // Arrange
-    given(userRepository.existsByEmail("dup@example.com")).willReturn(true);
+테스트는 세 구간으로 나눠 작성한다. 어떤 언어든 구조는 같다.
 
-    // Act & Assert
-    assertThatThrownBy(() -> userService.signup(new SignupRequest("dup@example.com", "pw")))
-            .isInstanceOf(IllegalArgumentException.class);
-}
-```
+- **Arrange**: 입력과 의존성(목/스텁 포함) 준비
+- **Act**: 검증 대상 동작 1회 실행
+- **Assert**: 결과가 기대와 일치하는지 단언
 
 ### 테스트 네이밍
 
-"무엇을 하면 어떻게 된다" 형식으로 행동을 서술한다. 각 테스트 메서드명은 한글로 작성하고, DisplayName을 반드시 붙여 작성한다.
+"무엇을 하면 어떻게 된다" 형식으로 **행동을 서술**한다. `test1`, `signupTest` 같은 의도가 안 드러나는 이름은 피한다.
 
-```java
-// 좋은 예
-@DisplayName("이메일 회원가입")
-void 새_이메일로_회원가입하면_저장된다();
-@DisplayName("중복 이메일 회원가입시 예외 발생")
-void 중복_이메일로_회원가입하면_예외가_발생한다();
-
-// 나쁜 예
-void test1();
-void signupTest();
+```
+좋은 예: 중복_이메일로_회원가입하면_예외가_발생한다
+나쁜 예: test1, signupTest
 ```
 
-### 테스트 종류 (Spring Boot)
+### 테스트 종류
 
-**단위 테스트** — 서비스/도메인 로직, Mockito로 의존성 격리
+- **단위 테스트** — 서비스/도메인 로직. 의존성은 목/스텁으로 격리한다.
+- **통합 테스트** — API 엔드포인트 등 여러 컴포넌트가 함께 동작하는 경로. 실제에 가까운 환경으로 검증한다.
 
-```java
-@ExtendWith(MockitoExtension.class)
-class UserServiceTest {
-    @Mock UserRepository userRepository;
-    @InjectMocks UserService userService;
-}
-```
-
-**통합 테스트** — API 엔드포인트, 실제 컨텍스트로 HTTP 검증
-
-```java
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
-class UserControllerTest {
-    @Autowired MockMvc mockMvc;
-}
-```
+> 구체적인 프레임워크 문법·애너테이션·목 설정은 스택별 참조 파일을 따른다.
 
 ---
 
@@ -115,8 +100,10 @@ class UserControllerTest {
 모든 케이스 구현 완료 후:
 
 1. **전체 테스트 실행** — 모든 테스트 통과 확인
-2. **빌드** — 빌드 성공 확인
+2. **빌드** — 빌드 성공 확인 (해당 스택의 빌드 명령)
 3. **정적 검증** — 린트, 타입 검사 등 (해당하는 경우)
+
+> 스택별 구체 명령은 참조 파일을 따른다.
 
 ---
 
